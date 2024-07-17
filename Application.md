@@ -2,7 +2,7 @@
 
 There are 5 resources:
 - Users
-- Principal
+- Principal 
 - Students
 - Teachers
 - Assignments
