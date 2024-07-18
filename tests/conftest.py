@@ -1,7 +1,7 @@
 import pytest
 import json
 from tests import app
-
+from core import db as flask_db
 
 @pytest.fixture
 def client():
@@ -66,3 +66,21 @@ def h_principal():
     }
 
     return headers
+
+
+
+
+@pytest.fixture(scope='module')
+def test_client():
+    app.testing = True
+    testing_client = app.test_client()
+    ctx = app.app_context()
+    ctx.push()
+    yield testing_client
+    ctx.pop()
+
+@pytest.fixture(scope='module')
+def init_database():
+    flask_db.create_all()
+    yield flask_db 
+    # flask_db.drop_all()

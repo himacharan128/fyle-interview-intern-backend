@@ -61,7 +61,7 @@ def test_grade_assignment_bad_grade(client, h_teacher_1):
             "id": 1,
             "grade": "AB"
         }
-    )
+    ) 
 
     assert response.status_code == 400
     data = response.json
