@@ -1,3 +1,5 @@
+
+
 def test_get_assignments_teacher_1(client, h_teacher_1):
     response = client.get(
         '/teacher/assignments',
@@ -44,7 +46,7 @@ def test_grade_assignment_cross(client, h_teacher_2):
     assert response.status_code == 400
     data = response.json
 
-    assert data['error'] == 'ValidationError'
+    assert data['error'] == 'FyleError'
     assert 'Only the assigned teacher can grade this assignment' in data['message']
 
 
