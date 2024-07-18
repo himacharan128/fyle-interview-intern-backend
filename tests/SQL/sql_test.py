@@ -70,13 +70,13 @@ def test_get_grade_A_assignments_for_teacher_with_max_grading(test_client, init_
         with open('tests/SQL/count_grade_A_assignments_by_teacher_with_max_grading.sql', encoding='utf8') as fo:
             sql = fo.read()
         grade_a_count_1 = create_n_graded_assignments_for_teacher(5)
-        # print(f"Grade A count for teacher 1 after creating 5 assignments: {grade_a_count_1}")
         sql_result = db.session.execute(text(sql)).fetchall()
+        # print(f"Grade A count for teacher 1 after creating 5 assignments: {grade_a_count_1}")
         # print(f"SQL result after creating 5 assignments for teacher 1: {sql_result}")
         assert grade_a_count_1 == sql_result[0][1]
 
         grade_a_count_2 = create_n_graded_assignments_for_teacher(10, 2)
-        # print(f"Grade A count for teacher 2 after creating 10 assignments: {grade_a_count_2}")
         sql_result = db.session.execute(text(sql)).fetchall()
+        # print(f"Grade A count for teacher 2 after creating 10 assignments: {grade_a_count_2}")
         # print(f"SQL result after creating 10 assignments for teacher 2: {sql_result}")
         assert grade_a_count_2 == sql_result[0][1]

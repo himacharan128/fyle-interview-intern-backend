@@ -69,7 +69,7 @@ def h_principal():
 
 
 
-
+# as sql test are in side they are unable to access application context so 
 @pytest.fixture(scope='module')
 def test_client():
     app.testing = True

@@ -34,7 +34,7 @@ def grade_assignment(p, incoming_payload):
     
     # print(f"Assignment ID: {assignment.id}, State: {assignment.state}")
     
-    # Check if the assignment is in 'Draft' state
+    # Checking for 'Draft' state
     if assignment.state == 'DRAFT':
         return APIResponse.respond(data={'message': 'Cannot grade an assignment in Draft state'}, status_code=400)
     
