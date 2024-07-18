@@ -10,28 +10,22 @@ def test_get_assignments_teacher_1(client, h_teacher_1):
     print("Received data:", data)
 
     for assignment in data:
+        assert assignment['teacher_id'] == 1 or assignment['teacher_id'] is None
         if assignment['teacher_id'] == 1:
             assert assignment['state'] in ['SUBMITTED', 'GRADED']
-        else:
-            assert assignment['teacher_id'] is None
 
 
 def test_get_assignments_teacher_2(client, h_teacher_2):
-    response = client.get(
-        '/teacher/assignments',
-        headers=h_teacher_2
-    )
-
+    response = client.get('/teacher/assignments', headers=h_teacher_2)
     assert response.status_code == 200
 
     data = response.json['data']
     print("Received data:", data)
 
     for assignment in data:
+        assert assignment['teacher_id'] == 2 or assignment['teacher_id'] is None
         if assignment['teacher_id'] == 2:
             assert assignment['state'] in ['SUBMITTED', 'GRADED', 'DRAFT']
-        else:
-            assert assignment['teacher_id'] is None
 
 
 def test_grade_assignment_cross(client, h_teacher_2):
@@ -47,10 +41,11 @@ def test_grade_assignment_cross(client, h_teacher_2):
         }
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 400
     data = response.json
 
-    assert data['error'] == 'FyleError'
+    assert data['error'] == 'ValidationError'
+    assert 'Only the assigned teacher can grade this assignment' in data['message']
 
 
 def test_grade_assignment_bad_grade(client, h_teacher_1):
